@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <!-- Root Menu -->
+        <menuitem name="Clinic Management" id="hospital_clinic_menu_root"/>
+
+        <!-- Action -->
+        <record id="hospital_clinic_action_window" model="ir.actions.act_window">
+            <field name="name">Clinics</field>
+            <field name="res_model">hospital.clinic</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+
+        <!-- Child Menu -->
+        <menuitem
+            id="hospital_clinic_menu_child"
+            name="Clinics"
+            action="hospital_clinic_action_window"
+            parent="hospital_clinic_menu_root"
+            sequence="10"/>
+
+        <!-- Form View -->
+        <record id="hospital_clinic_form_view" model="ir.ui.view">
+            <field name="name">hospital.clinic.form</field>
+            <field name="model">hospital.clinic</field>
+            <field name="arch" type="xml">
+                <form string="Clinic Form">
+                    <header>
+                        <button name="open_clinic" type="object" string="Open" class="btn-primary" invisible="state != 'new'"/>
+                        <button name="close_clinic" type="object" string="Close" class="btn-danger" invisible="state != 'open'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,open,closed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="doctor_id"/>
+                            <field name="cost"/>
+                        </group>
+                        <group>
+                            <field name="open_datetime"/>
+                            <field name="end_datetime"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="patient_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- List View -->
+        <record id="hospital_clinic_list_view" model="ir.ui.view">
+            <field name="name">hospital.clinic.list</field>
+            <field name="model">hospital.clinic</field>
+            <field name="arch" type="xml">
+                <list string="Clinic List">
+                    <field name="name"/>
+                    <field name="doctor_id"/>
+                    <field name="cost"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="clinic_view_kanban" model="ir.ui.view">
+            <field name="name">clinic.view.kanban</field>
+            <field name="model">hospital.clinic</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state">
+                    <field name="name"/>
+                    <field name="doctor_id"/>
+                    <field name="cost"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="card">
+                            <main>
+                                <field name="name" class="fw-bold fs-5"/>
+
+                                <div>
+                                    <span>Doctor:</span>
+                                    <field name="doctor_id"/>
+                                </div>
+                                <div>
+                                    <span>Cost:</span>
+                                    <field name="cost"/>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

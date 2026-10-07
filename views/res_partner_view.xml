@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+    <record id="view_partner_form_inherit_clinic" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.clinic</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook" position="inside">
+                    <page name="clinics" string="Clinics">
+                    <field name="clinic_ids">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="doctor_id"/>
+                            <field name="cost"/>
+                            <field name="state" widget="badge"/>
+
+                        </list>
+
+
+                    </field>
+
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+  </data>
+</odoo>
